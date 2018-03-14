@@ -166,6 +166,22 @@ void removeCycle(struct Node * head, struct Node * cycleNode) {
     ptr2->next = NULL;
 }
 
+struct Node * getFirstCycleNode(struct Node * head, struct Node * cycleNode) {
+    struct Node * node = hasCycle(head);
+    if(node == NULL)
+        return NULL;
+    
+    struct Node * fast = cycleNode;
+    cycleNode = head;
+    
+    while (fast != cycleNode) {
+        fast = fast->next;
+        cycleNode = cycleNode->next;
+    }
+    
+    return cycleNode;
+}
+
 void print(struct Node * head) {
     struct Node * ptr = head;
     

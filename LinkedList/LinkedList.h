@@ -16,6 +16,7 @@ int reverse(struct Node ** head);
 int search(struct Node * head, int data);
 struct Node * hasCycle(struct Node * head);
 void removeCycle(struct Node * head, struct Node * cycleNode);
+struct Node * getFirstCycleNode(struct Node * head, struct Node * cycleNode);
 void print(struct Node * head);
 
 #endif /* LinkedList_h */

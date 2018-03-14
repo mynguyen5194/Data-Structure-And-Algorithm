@@ -29,7 +29,7 @@ int main(int argc, const char * argv[]) {
     headCycle->next->next = newNode(3);
     headCycle->next->next->next = newNode(4);
     headCycle->next->next->next->next = newNode(5);
-    headCycle->next->next->next->next->next = headCycle->next;
+    headCycle->next->next->next->next->next = headCycle->next->next;
     
     printf("Before removing the cycle\n");
     struct Node * cycleNode = hasCycle(headCycle);
@@ -39,6 +39,9 @@ int main(int argc, const char * argv[]) {
         printf("Contain no cycle\n");
     }
     
+    struct Node * firstCycleNode = getFirstCycleNode(headCycle, cycleNode);
+    printf("\nFirst cycle node = %d\n", firstCycleNode->data);
+    
     printf("\nAfter removing the cycle\n");
     removeCycle(headCycle, cycleNode);
     cycleNode = hasCycle(headCycle);
@@ -47,6 +50,7 @@ int main(int argc, const char * argv[]) {
     } else {
         printf("Contain no cycle\n");
     }
+    print(headCycle);
     
     
     
