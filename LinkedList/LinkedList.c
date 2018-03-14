@@ -1,15 +1,14 @@
-//
-//  LinkedList.c
-//  cTest
-//
-//  Created by My Nguyen on 3/13/18.
-//  Copyright © 2018 My Nguyen. All rights reserved.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "LinkedList.h"
 
+struct Node * newNode(int data) {
+    struct Node * newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    
+    return newNode;
+}
 
 void insert(struct Node ** head, int data, int pos) {
     struct Node * newNode = (struct Node*)malloc(sizeof(struct Node));
@@ -111,18 +110,6 @@ int search(struct Node * head, int data) {
     return -1;
 }
 
-void print(struct Node * head) {
-    struct Node * ptr = head;
-    
-    // printf("%d\n", head->data);
-    
-    while(ptr) {
-        printf("%d -> ", ptr->data);
-        ptr = ptr->next;
-    }
-    printf("\n");
-}
-
 int reverse(struct Node ** head) {
     
     struct Node * curr = *head;
@@ -139,4 +126,52 @@ int reverse(struct Node ** head) {
     
     return 0;
     
+}
+
+struct Node * hasCycle(struct Node * head) {
+    struct Node * slow = head;
+    struct Node * fast = head;
+    
+    while(slow && fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        
+        if(slow == fast) {
+            return slow;
+        }
+    }
+    
+    return NULL;
+}
+void removeCycle(struct Node * head, struct Node * cycleNode) {
+    struct Node * ptr1 = head;
+    struct Node * ptr2 = NULL;
+    
+    while (1) {
+        ptr2 = cycleNode;
+        
+        // Move ptr2 around the cycle
+        while (ptr2->next != cycleNode && ptr2->next != ptr1) {
+            ptr2 = ptr2->next;
+        }
+        
+        if (ptr2->next == ptr1) {
+            break;
+        }
+        
+        ptr1 = ptr1->next;
+    }
+    
+    // Disconnect the cycle
+    ptr2->next = NULL;
+}
+
+void print(struct Node * head) {
+    struct Node * ptr = head;
+    
+    while(ptr) {
+        printf("%d -> ", ptr->data);
+        ptr = ptr->next;
+    }
+    printf("\n");
 }
